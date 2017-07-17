@@ -1,9 +1,9 @@
 {
-  "name": "sd-backstate",
+  "name": "multi-hostname-vue-cli",
   "version": "1.0.0",
-  "description": "sd back state for wechat",
+  "description": "满足不同环境（域名）的下面的包的开发需求",
   "author": "Vincent Lau <413893093@qq.com>",
-  "private": true,
+  "private": false,
   "scripts": {
     "dev": "node build/dev-server.js",
     "build": "node build/build.js",

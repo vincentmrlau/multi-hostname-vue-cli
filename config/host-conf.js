@@ -11,7 +11,7 @@ const chalk = require('chalk')
 * dirName: 打包的路径，只在build的时候有用
 * hostname: 这个环境下面的hostname
 * */
-const EVN_LIST = [
+const ENV_LIST = [
   {
     envName: 'test',
     dirName: 'test',
@@ -33,21 +33,21 @@ const HOST_ENV = process.env.HOST_ENV
 let HOST_CONF
 if ( HOST_ENV === undefined ) {
   // 没有设置环境，则默认为第一个
-  HOST_CONF = EVN_LIST[0]
-  console.log(chalk.bgYellow('缺少参数，默认使用 host-conf.js 的 EVN_LIST的第一个参数'))
+  HOST_CONF = ENV_LIST[0]
+  console.log(chalk.bgYellow('缺少参数，默认使用 host-conf.js 的 ENV_LIST的第一个参数'))
 } else {
-  for (let i = 0; i < EVN_LIST.length; i++) {
-    if ( EVN_LIST[i].envName === HOST_ENV) {
-      HOST_CONF = EVN_LIST[i]
+  for (let i = 0; i < ENV_LIST.length; i++) {
+    if ( ENV_LIST[i].envName === HOST_ENV) {
+      HOST_CONF = ENV_LIST[i]
       break
     }
   }
 }
 // 如果没有匹配，发出警告，使用第一个
 if( HOST_CONF === undefined) {
-  HOST_CONF = EVN_LIST[0]
-  console.log(chalk.bgRed('参数错误，默认使用 host-conf.js 的 EVN_LIST的第一个参数'))
-  console.log(chalk.red('参数错误，默认使用 host-conf.js 的 EVN_LIST的第一个参数'))
+  HOST_CONF = ENV_LIST[0]
+  console.log(chalk.bgRed('参数错误，默认使用 host-conf.js 的 ENV_LIST的第一个参数'))
+  console.log(chalk.red('参数错误，默认使用 host-conf.js 的 ENV_LIST的第一个参数'))
 }
 // 把hostname设置到 node 的环境中 方便客户端使用
 process.env.HOST_NAME = HOST_CONF.hostname
@@ -57,4 +57,4 @@ console.log(chalk.green('选中的参数为：'))
 console.log(HOST_CONF)
 
 module.exports.HOST_CONF = HOST_CONF
-module.exports.EVN_LIST = EVN_LIST
+module.exports.ENV_LIST = ENV_LIST

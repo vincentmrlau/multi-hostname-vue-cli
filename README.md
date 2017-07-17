@@ -1,30 +1,69 @@
-# sd-backstate
+# multi-hostname-vue-cli
 
-> sd back state for wechat
+> 针对不同的域名进行打包和开发。 
 
-## Build Setup
+## Start up
 
-``` bash
-# install dependencies
-npm install
+#### clone && npm install
+#### 修改配置文件 /config/host-config.js,只需要修改 ENV_LIST
 
-# serve with hot reload at localhost:8080
-npm run dev
-
-# build for production with minification
-npm run build
-
-# build for production and view the bundle analyzer report
-npm run build --report
-
-# run unit tests
-npm run unit
-
-# run e2e tests
-npm run e2e
-
-# run all tests
-npm test
+```
+/*
+* 环境列表，第一个环境为默认环境
+* envName: 指明现在使用的环境
+* dirName: 打包的路径，只在build的时候有用
+* hostname: 这个环境下面的hostname
+* */
+const ENV_LIST = [
+  {
+    envName: 'test',
+    dirName: 'test',
+    hostname: 'http://test_hostname'
+  },
+  {
+    envName: 'pro',
+    dirName: 'pro',
+    hostname: 'http://product_hostname'
+  },
+  {
+    envName: 'qa',
+    dirName: 'qa',
+    hostname: 'http://qa_hostname'
+  }
+]
 ```
 
-For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+####	在文件中使用hostname
+
+```javascript
+const HOST_NAME = process.env.HOST_NAME
+export {HOST_NAME}
+```
+
+#### dev 开发调试
+> npm run dev [envName]
+
+* envName 为上面配置的envName，对应的process.env.HOST_NAME的值就是 对应的ENV_LIST中的hostname
+* 不指定envName默认选择ENV_LIST的第一个值
+* envName 不在ENV_LIST 中的时候默认选择 ENV_LIST的第一个值
+
+```bash
+# 例子：
+# 在qa的环境中调试，process.env.HOST_NAME === 'http://qa_hostname'
+npm run dev qa
+```
+
+#### build 打包
+> npm run build [envName] //打指定环境的包
+> 
+> npm run build-all // 全部重新打包
+
+* 打包的envName与 dev类似
+* 执行打包命令会在dist文件夹中生成对应的路径
+
+```
+dist
+    |-test
+    |-qa
+    |-pro
+```
