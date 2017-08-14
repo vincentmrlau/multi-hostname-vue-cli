@@ -4,4 +4,4 @@
 
 const HOST_NAME = process.env.HOST_NAME
 
-export {HOST_NAME}
+export default HOST_NAME

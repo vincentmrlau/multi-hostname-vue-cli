@@ -1,6 +1,6 @@
 # multi-hostname-vue-cli
 
-> 针对不同的域名进行打包和开发。 
+> 针对不同的域名进行打包和开发。
 
 ## Start up
 
@@ -12,23 +12,27 @@
 * 环境列表，第一个环境为默认环境
 * envName: 指明现在使用的环境
 * dirName: 打包的路径，只在build的时候有用
-* hostname: 这个环境下面的hostname
+* apiHostname: 这个环境下面的api 请求的域名
+* assetHostname: 静态资源存放的域名
 * */
 const ENV_LIST = [
   {
     envName: 'test',
     dirName: 'test',
-    hostname: 'http://test_hostname'
+    apiHostname: 'http://test_apiHostname',
+    assetHostname: 'http://localhost:3004'
   },
   {
     envName: 'pro',
     dirName: 'pro',
-    hostname: 'http://product_hostname'
+    apiHostname: 'http://product_apiHostname',
+    assetHostname:'http://product_assetHostname'
   },
   {
     envName: 'qa',
     dirName: 'qa',
-    hostname: 'http://qa_hostname'
+    apiHostname: 'http://product_apiHostname',
+    assetHostname:'http://product_assetHostname'
   }
 ]
 ```
@@ -55,7 +59,7 @@ npm run dev qa
 
 #### build 打包
 > npm run build [envName] //打指定环境的包
-> 
+>
 > npm run build-all // 全部重新打包
 
 * 打包的envName与 dev类似
@@ -67,3 +71,34 @@ dist
     |-qa
     |-pro
 ```
+
+## 对比vue-cli生成的环境修改的地方
+#### 新增 `/config/host-conf.js`
+> [host-conf.js](https://github.com/vincentmrlau/multi-hostname-vue-cli/blob/master/config/host-conf.js)
+
+#### 修改 `/config/index.js`
+* 修改build的路径
+* 修改build的静态资源的路径
+
+#### 修改 `/build/webpack.base.conf.js
+* 添加 用户客户端的环境变量
+```
+// 通过webpack传入客户端中
+  plugins: [
+    new webpack.DefinePlugin({
+      'process.env.HOST_NAME': '\"' + process.env.HOST_NAME + '\"'
+    })
+  ]
+```
+
+#### 入口`build/build.js`和`build/dev-server.js`设置环境变量
+```javaScript
+// 设置域名的环境变量
+process.env.HOST_ENV = process.argv[2]
+```
+
+#### 新增 `build/build-all.js`
+> [host-conf.js](https://github.com/vincentmrlau/multi-hostname-vue-cli/blob/master/build/build-all.js)
+
+#### 修改`package.json`的script
+

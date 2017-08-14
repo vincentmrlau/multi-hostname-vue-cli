@@ -7,11 +7,13 @@ const HOST_CONF = require('./host-conf').HOST_CONF
 module.exports = {
   build: {
     env: require('./prod.env'),
-    index: path.resolve(__dirname, '../dist', HOST_CONF.dirName, 'index.html'),
-    assetsRoot: path.resolve(__dirname, '../dist', HOST_CONF.dirName),
+    index: path.resolve(__dirname, '../dist', HOST_CONF.dirName, 'index.html'), //modify
+    assetsRoot: path.resolve(__dirname, '../dist', HOST_CONF.dirName), // modify
     assetsSubDirectory: 'static',
-    // 这里可改成了相对路径，建议还是用绝对路径
-    assetsPublicPath: '',
+    // 这里可改成了相对路径，建议用绝对路径
+    // assetsPublicPath: '',
+    // 指定静态资源打包的路径
+    assetsPublicPath: HOST_CONF.assetHostname + '/', //modify
     productionSourceMap: true,
     // Gzip off by default as many popular static hosts such as
     // Surge or Netlify already gzip all static assets for you.

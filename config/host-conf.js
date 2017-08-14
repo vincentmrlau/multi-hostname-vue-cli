@@ -9,23 +9,27 @@ const chalk = require('chalk')
 * 环境列表，第一个环境为默认环境
 * envName: 指明现在使用的环境
 * dirName: 打包的路径，只在build的时候有用
-* hostname: 这个环境下面的hostname
+* apiHostname: 这个环境下面的api 请求的域名
+* assetHostname: 静态资源存放的域名
 * */
 const ENV_LIST = [
   {
     envName: 'test',
     dirName: 'test',
-    hostname: 'http://test_hostname'
+    apiHostname: 'http://test_apiHostname',
+    assetHostname: 'http://localhost:3004'
   },
   {
     envName: 'pro',
     dirName: 'pro',
-    hostname: 'http://product_hostname'
+    apiHostname: 'http://product_apiHostname',
+    assetHostname:'http://product_assetHostname'
   },
   {
     envName: 'qa',
     dirName: 'qa',
-    hostname: 'http://qa_hostname'
+    apiHostname: 'http://product_apiHostname',
+    assetHostname:'http://product_assetHostname'
   }
 ]
 
@@ -49,8 +53,8 @@ if( HOST_CONF === undefined) {
   console.log(chalk.bgRed('参数错误，默认使用 host-conf.js 的 ENV_LIST的第一个参数'))
   console.log(chalk.red('参数错误，默认使用 host-conf.js 的 ENV_LIST的第一个参数'))
 }
-// 把hostname设置到 node 的环境中 方便客户端使用
-process.env.HOST_NAME = HOST_CONF.hostname
+// 把apiHostname设置到 node 的环境中 方便客户端使用
+process.env.HOST_NAME = HOST_CONF.apiHostname
 
 // log选中的变量
 console.log(chalk.green('选中的参数为：'))

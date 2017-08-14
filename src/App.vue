@@ -10,8 +10,7 @@ export default {
 }
 </script>
 
-<style lang="less">
-@import '~vux/src/styles/reset.less';
+<style>
 body {
   background-color: #fbf9fe;
 }
