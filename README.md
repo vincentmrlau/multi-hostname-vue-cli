@@ -1,6 +1,8 @@
 # multi-hostname-vue-cli
 
-> 针对不同的域名进行打包和开发。
+## 针对解决的问题
+1. 接口环境很多，有测试服，有qa，有正式等等，每次都要修改代码？no!
+2. 静态资源可能要存到cdn中，这也要修改代码吗？no!
 
 ## Start up
 
@@ -13,7 +15,7 @@
 * envName: 指明现在使用的环境
 * dirName: 打包的路径，只在build的时候有用
 * apiHostname: 这个环境下面的api 请求的域名
-* assetHostname: 静态资源存放的域名
+* assetHostname: 静态资源存放的域名,未指定（undefined）则为相对路径
 * */
 const ENV_LIST = [
   {
@@ -64,6 +66,7 @@ npm run dev qa
 
 * 打包的envName与 dev类似
 * 执行打包命令会在dist文件夹中生成对应的路径
+* html和css中使用过的静态资源的引用路径会指定到设定的域名中
 
 ```
 dist
@@ -100,5 +103,7 @@ process.env.HOST_ENV = process.argv[2]
 #### 新增 `build/build-all.js`
 > [host-conf.js](https://github.com/vincentmrlau/multi-hostname-vue-cli/blob/master/build/build-all.js)
 
-#### 修改`package.json`的script
+#### 修改`package.json`的script, 增加Build-all
+
+> "build-all": "node build/build-all.js"
 

@@ -10,7 +10,7 @@ const chalk = require('chalk')
 * envName: 指明现在使用的环境
 * dirName: 打包的路径，只在build的时候有用
 * apiHostname: 这个环境下面的api 请求的域名
-* assetHostname: 静态资源存放的域名
+* assetHostname: 静态资源存放的域名，未指定则使用相对路径
 * */
 const ENV_LIST = [
   {
