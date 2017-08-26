@@ -1,5 +1,7 @@
 # multi-hostname-vue-cli
 
+[github传送门](https://github.com/vincentmrlau/multi-hostname-vue-cli)
+
 ## 针对解决的问题
 1. 接口环境很多，有测试服，有qa，有正式等等，每次都要修改代码？no!
 2. 静态资源可能要存到cdn中，这也要修改代码吗？no!
